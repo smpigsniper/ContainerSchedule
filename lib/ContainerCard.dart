@@ -26,15 +26,28 @@ class _ContainerCardState extends State<ContainerCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Chip(
-                  avatar: Icon(isOcean ? Icons.directions_boat : Icons.flight_takeoff, size: 18, color: Colors.white),
+                  avatar: Icon(
+                    isOcean ? Icons.directions_boat : Icons.flight_takeoff,
+                    size: 18,
+                    color: Colors.white,
+                  ),
                   label: Text(
-                    widget.schedule.transportType,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    '${widget.schedule.transportType} - ${widget.schedule.bookingNo}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   backgroundColor: isOcean ? Colors.indigo : Colors.teal,
                   visualDensity: VisualDensity.compact,
                 ),
-                Text('Sales: ${widget.schedule.salesName}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(
+                  'Sales: ${widget.schedule.salesName}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -59,14 +72,18 @@ class _ContainerCardState extends State<ContainerCard> {
                   label: const Text('Aluminum'),
                   selected: widget.schedule.isAluminum,
                   onSelected: null,
-                  avatar: widget.schedule.isAluminum ? const Icon(Icons.check, size: 14) : null,
+                  avatar: widget.schedule.isAluminum
+                      ? const Icon(Icons.check, size: 14)
+                      : null,
                   selectedColor: Colors.amber.shade200,
                 ),
                 FilterChip(
                   label: const Text('Special Dimension'),
                   selected: widget.schedule.isDimension,
                   onSelected: null,
-                  avatar: widget.schedule.isDimension ? const Icon(Icons.warning_amber, size: 14) : null,
+                  avatar: widget.schedule.isDimension
+                      ? const Icon(Icons.warning_amber, size: 14)
+                      : null,
                   selectedColor: Colors.deepOrange.shade100,
                 ),
               ],
@@ -76,8 +93,14 @@ class _ContainerCardState extends State<ContainerCard> {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(6)),
-                child: Text('Memo: ${widget.schedule.memo}', style: TextStyle(color: Colors.grey.shade800, fontSize: 13)),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  'Memo: ${widget.schedule.memo}',
+                  style: TextStyle(color: Colors.grey.shade800, fontSize: 13),
+                ),
               ),
             ],
           ],

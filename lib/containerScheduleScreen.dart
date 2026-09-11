@@ -9,7 +9,8 @@ class ContainerScheduleScreen extends StatefulWidget {
   const ContainerScheduleScreen({super.key});
 
   @override
-  State<ContainerScheduleScreen> createState() => _ContainerScheduleScreenState();
+  State<ContainerScheduleScreen> createState() =>
+      _ContainerScheduleScreenState();
 }
 
 class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
@@ -47,6 +48,7 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
       final updatedSchedule = ContainerScheduleModel(
         salesName: schedule.salesName,
         containerSize: schedule.containerSize,
+        bookingNo: schedule.bookingNo,
         date: newKey,
         time: schedule.time,
         loadingTime: schedule.loadingTime,
@@ -63,7 +65,14 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
       }
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('已將 ${schedule.salesName} 的貨櫃移至 ${newDate.month}/${newDate.day}'), duration: const Duration(seconds: 2)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '已將 ${schedule.salesName} 的貨櫃移至 ${newDate.month}/${newDate.day}',
+        ),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   Map<DateTime, List<ContainerScheduleModel>> _loadMockData() {
@@ -71,6 +80,7 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
       {
         "salesName": "Alex",
         "containerSize": "40HQ",
+        "bookingNo": "1234567890",
         "date": "09/20/2026",
         "time": "09:30",
         "loadingTime": "2.5 Hours",
@@ -82,6 +92,7 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
       {
         "salesName": "Sarah",
         "containerSize": "Pallet x 4",
+        "bookingNo": "YTR26154831",
         "date": "09/20/2026",
         "time": "14:00",
         "loadingTime": "1 Hour",
@@ -93,6 +104,7 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
       {
         "salesName": "Michael",
         "containerSize": "20GP",
+        "bookingNo": "RICGCQ611300",
         "date": "09/21/2026",
         "time": "10:00",
         "loadingTime": "1.5 Hours",
@@ -107,7 +119,9 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
     final Map<DateTime, List<ContainerScheduleModel>> map = {};
 
     for (var item in list) {
-      final schedule = ContainerScheduleModel.fromJson(item as Map<String, dynamic>);
+      final schedule = ContainerScheduleModel.fromJson(
+        item as Map<String, dynamic>,
+      );
       final key = _normalizeDate(schedule.date);
       if (map.containsKey(key)) {
         map[key]!.add(schedule);
@@ -123,7 +137,11 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
     final selectedEvents = _getSchedulesForDay(_selectedDay!);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Container Schedule'), centerTitle: true, backgroundColor: Theme.of(context).colorScheme.inversePrimary),
+      appBar: AppBar(
+        title: const Text('Container Schedule'),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       body: Column(
         children: [
           TableCalendar<ContainerScheduleModel>(
@@ -171,7 +189,14 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
                         shape: BoxShape.circle,
                       ),
                       alignment: Alignment.center,
-                      child: Text('${day.day}', style: TextStyle(color: isSameDay(_selectedDay, day) ? Colors.white : Colors.black)),
+                      child: Text(
+                        '${day.day}',
+                        style: TextStyle(
+                          color: isSameDay(_selectedDay, day)
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                      ),
                     );
                   },
                 );
@@ -195,10 +220,16 @@ class _ContainerScheduleScreenState extends State<ContainerScheduleScreen> {
                           color: Colors.transparent,
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.85,
-                            child: Opacity(opacity: 0.85, child: ContainerCard(schedule: item)),
+                            child: Opacity(
+                              opacity: 0.85,
+                              child: ContainerCard(schedule: item),
+                            ),
                           ),
                         ),
-                        childWhenDragging: Opacity(opacity: 0.3, child: ContainerCard(schedule: item)),
+                        childWhenDragging: Opacity(
+                          opacity: 0.3,
+                          child: ContainerCard(schedule: item),
+                        ),
                         child: ContainerCard(schedule: item),
                       );
                     },

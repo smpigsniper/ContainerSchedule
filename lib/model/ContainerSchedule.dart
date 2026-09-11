@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 class ContainerScheduleModel {
   final String salesName;
   final String containerSize;
+  final String bookingNo;
   final DateTime date;
   final TimeOfDay time;
   final String loadingTime;
@@ -14,6 +15,7 @@ class ContainerScheduleModel {
 
   ContainerScheduleModel({
     required this.salesName,
+    required this.bookingNo,
     required this.containerSize,
     required this.date,
     required this.time,
@@ -25,16 +27,19 @@ class ContainerScheduleModel {
   });
 
   factory ContainerScheduleModel.fromJson(Map<String, dynamic> json) {
-    // 1. 解析 MM/dd/yyyy 日期格式
     final DateFormat dateFormat = DateFormat('MM/dd/yyyy');
     final DateTime parsedDate = dateFormat.parse(json['date'] as String);
 
     final timeParts = (json['time'] as String).split(':');
-    final TimeOfDay parsedTime = TimeOfDay(hour: int.parse(timeParts[0]), minute: int.parse(timeParts[1]));
+    final TimeOfDay parsedTime = TimeOfDay(
+      hour: int.parse(timeParts[0]),
+      minute: int.parse(timeParts[1]),
+    );
 
     return ContainerScheduleModel(
       salesName: json['salesName'] as String? ?? '',
       containerSize: json['containerSize'] as String? ?? '',
+      bookingNo: json['bookingNo'] as String? ?? '',
       date: parsedDate,
       time: parsedTime,
       loadingTime: json['loadingTime'] as String? ?? '',
